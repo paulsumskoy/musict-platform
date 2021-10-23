@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Delete, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, ObjectId } from "mongoose";
 import { CreateTrackDto } from "./dto/create-track.dto";
@@ -27,8 +27,9 @@ export class TrackService {
         return track;
     }
 
-    async delete() {
-
+    async delete(id: ObjectId): Promise<ObjectId> {
+        const track = await this.trackModel.findByIdAndDelete(id);
+        return track._id
     }
 
 }
