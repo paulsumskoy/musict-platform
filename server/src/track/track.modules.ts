@@ -8,12 +8,10 @@ import { TrackService } from "./track.service";
 @Module({
     imports: [
         MongooseModule.forFeature([{name: Track.name, schema: TrackSchema }]),
-        MongooseModule.forFeature([{name: Comment.name, schema: CommentSchema }]),
+        //MongooseModule.forFeature([{name: Comment.name, schema: CommentSchema }]),
     ],
     controllers: [TrackController],
     providers:[TrackService]
 })
 
-export class TrackModule{
-
-}
+export class TrackModule {}
