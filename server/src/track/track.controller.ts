@@ -15,8 +15,8 @@ import { TrackService } from "./track.service";
         { name: 'audio', maxCount: 1 },
       ]))
     create(@UploadedFiles() files, @Body() dto: CreateTrackDto) {
-        console.log(files)
-        return this.trackService.create(dto, '', '');
+        const {picture, audio} = files
+        return this.trackService.create(dto, picture[0], audio[0]);
     }
 
     @Get()
