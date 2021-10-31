@@ -34,7 +34,7 @@ export default function Navbar() {
     };
 
     return (
-        <div >
+        <div>
             <CssBaseline />
             <AppBar
                 position="fixed"
