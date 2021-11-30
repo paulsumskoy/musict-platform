@@ -1,10 +1,53 @@
-import React from "react";
+import { Button, Grid, TextField } from "@material-ui/core";
+import React, { useState } from "react";
+import StepWrapper from "../../components/StepWrapper";
 import MainLayout from "../../layouts/MainLayot";
 
 const Create = () => {
+    const[activeStep, setActiveStep] = useState(0)
+    const next = () => {
+        if (activeStep !== 2) {
+            setActiveStep(prev => prev + 1)
+        }
+    }
+
+    const back = () => {
+        setActiveStep(prev => prev - 1)
+    }
+
     return (
         <MainLayout>
-            <h1>Treck Upload</h1>
+            <StepWrapper activeStep={activeStep}>
+                {activeStep === 0 &&
+                <Grid container direction={"column"} style={{padding: 20}}>
+                    <TextField
+                        style={{marginTop: 10}}
+                        label={"Name of the track"}
+                    />
+                    <TextField
+                        style={{marginTop: 10}}
+                        label={"Artist name"}
+                        
+                    />
+                    <TextField
+                        style={{marginTop: 10}}
+                        label={"Lyrics"}
+                        multiline
+                        rows={3}
+                    />
+                </Grid>
+                }
+                {activeStep === 1 &&
+                    <h1>Step 2</h1>
+                }
+                {activeStep === 2 &&
+                    <h1>Step 3</h1>
+                }
+            </StepWrapper>
+            <Grid container justifyContent='space-between'>
+                <Button disabled={activeStep === 0} onClick={back}>Back</Button>
+                <Button onClick={next}>Next</Button>
+            </Grid>
         </MainLayout>
     );
 };
