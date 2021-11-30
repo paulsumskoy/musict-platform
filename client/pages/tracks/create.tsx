@@ -1,5 +1,6 @@
 import { Button, Grid, TextField } from "@material-ui/core";
 import React, { useState } from "react";
+import FileUpload from "../../components/FileUpload";
 import StepWrapper from "../../components/StepWrapper";
 import MainLayout from "../../layouts/MainLayot";
 
@@ -38,7 +39,9 @@ const Create = () => {
                 </Grid>
                 }
                 {activeStep === 1 &&
-                    <h1>Step 2</h1>
+                    <FileUpload file={''} setFile={() =>({})} accept="/image*">
+                        <Button>Upload the picture</Button>
+                    </FileUpload>
                 }
                 {activeStep === 2 &&
                     <h1>Step 3</h1>
