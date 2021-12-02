@@ -1,6 +1,6 @@
 import { Grid, IconButton } from "@material-ui/core";
 import { Pause, PlayArrow, VolumeUp } from "@material-ui/icons";
-import React from "react";
+import React, { useEffect } from "react";
 import { useActions } from "../hooks/useActions";
 import { useTypeSelector } from "../hooks/useTypeSelector";
 import styles from '../styles/Player.module.scss';
@@ -14,11 +14,19 @@ const Player = () => {
     const {pause, volume, active, duration, currenTime} = useTypeSelector(state => state.player)
     const {pauseTrack, playTrack} = useActions()
 
+    useEffect(() => {
+        if(!audio){
+            audio = new Audio()
+        }
+    }), []
+
     const play = () => {
         if (pause) {
             playTrack()
+            audio.play()
         } else {
             pauseTrack()
+            audio.pause()
         }
     }
 
