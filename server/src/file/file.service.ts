@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as uuid from 'uuid';
@@ -10,11 +11,18 @@ export enum FileType {
 
 @Injectable()
 export class FileService {
+  constructor(private configService: ConfigService) {}
+
   createFile(type: FileType, file: Express.Multer.File): string {
     try {
       const fileExtension = file.originalname.split('.').pop();
       const fileName = uuid.v4() + '.' + fileExtension;
-      const filePath = path.resolve(__dirname, '..', 'static', type);
+      const filePath = path.resolve(
+        __dirname,
+        '..',
+        this.configService.get<string>('folders.forUserFiles'),
+        type,
+      );
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath, { recursive: true });
       }

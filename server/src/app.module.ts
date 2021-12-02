@@ -1,16 +1,27 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ViewModule } from './view/view.module';
 import { FileService } from './file/file.service';
 import { TrackModule } from './track/track.module';
-import * as path from 'path';
-import { ServeStaticModule } from '@nestjs/serve-static';
+import { configuration } from './config/configuration';
+import { validationSchema } from './config/validation';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({ rootPath: path.resolve(__dirname, 'static') }),
-    MongooseModule.forRoot(
-      'mongodb+srv://admin:admin@cluster0.mnmgy.mongodb.net/music-platform?retryWrites=true&w=majority',
-    ),
+    ViewModule,
+    ConfigModule.forRoot({
+      load: [configuration],
+      isGlobal: true,
+      validationSchema,
+    }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('database.uri'),
+      }),
+      inject: [ConfigService],
+    }),
     TrackModule,
     FileService,
   ],

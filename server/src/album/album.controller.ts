@@ -15,7 +15,7 @@ import { ObjectId } from 'mongoose';
 import { AlbumService } from './album.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
 
-@Controller('/albums')
+@Controller('/api/albums')
 export class AlbumController {
   constructor(private albumService: AlbumService) {}
 

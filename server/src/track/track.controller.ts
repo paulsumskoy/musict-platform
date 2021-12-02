@@ -15,7 +15,7 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { TrackService } from './track.service';
 
-@Controller('/tracks')
+@Controller('/api/tracks')
 export class TrackController {
   constructor(private trackService: TrackService) {}
 
