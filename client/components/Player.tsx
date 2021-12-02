@@ -14,9 +14,10 @@ const Player = () => {
     const {pause, volume, active, duration, currenTime} = useTypeSelector(state => state.player)
     const {pauseTrack, playTrack} = useActions()
 
-    useEffect(() => {
+    useEffect( () => {
         if(!audio){
             audio = new Audio()
+            audio.src = track.audio
         }
     }), []
 
@@ -34,8 +35,8 @@ const Player = () => {
         <div className={styles.player}>
             <IconButton onClick={play}>
                 {pause
-                    ? <Pause/>
-                    :<PlayArrow/> 
+                    ? <PlayArrow/> 
+                    : <Pause/>
                 }
             </IconButton>
             <Grid container direction="column" style={{width: 200, margin: '0 20px'}}>
