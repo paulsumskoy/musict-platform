@@ -4,12 +4,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ViewModule } from './view/view.module';
 import { FileService } from './file/file.service';
 import { TrackModule } from './track/track.module';
+import { AlbumModule } from './album/album.module';
 import { configuration } from './config/configuration';
 import { validationSchema } from './config/validation';
 
 @Module({
   imports: [
-    ViewModule,
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true,
@@ -23,6 +23,8 @@ import { validationSchema } from './config/validation';
       inject: [ConfigService],
     }),
     TrackModule,
+    AlbumModule,
+    ViewModule,
     FileService,
   ],
 })
