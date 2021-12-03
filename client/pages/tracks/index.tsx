@@ -4,9 +4,13 @@ import MainLayout from "../../layouts/MainLayot";
 import { useRouter } from "next/router";
 import { ITrack } from "../../types/tracks";
 import TrackList from "../../components/TrackList";
+import { useTypeSelector } from "../../hooks/useTypeSelector";
+import { useActions } from "../../hooks/useActions";
 
 const Index = () => {
     const router = useRouter()
+    //const {} = useTypeSelector(state => state.player)
+    //const {} = useActions()
     const tracks: ITrack[] = [
         {_id: '1', name: "Walking", artist: "Jesper Kyd", text: "lalala", listens: 5, audio: 'http://localhost:5000/audio/first.mp3', picture: "http://localhost:5000/image/first.jpg", comments: []},
         {_id: '2', name: "Touch", artist: "VCRNOT", text: "lololo", listens: 5, audio: 'http://localhost:5000/audio/second.mp3', picture: "http://localhost:5000/image/second.jpg", comments: []},

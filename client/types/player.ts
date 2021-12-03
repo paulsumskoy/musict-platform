@@ -25,11 +25,11 @@ interface PauseAction {
 }
 interface SetActiveAction {
     type: PlayerActionTypes.SET_ACTIVE,
-    playload: ITrack;
+    payload: ITrack;
 }
 interface SetDurationAction {
     type: PlayerActionTypes.SET_DURATION,
-    playload: number;
+    payload: number;
 }
 interface SetVolumeAction {
     type: PlayerActionTypes.SET_VOLUME,
