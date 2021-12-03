@@ -1,5 +1,5 @@
-import { Controller, Get, Res, Req } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Controller, Get, Res, Req, Next } from '@nestjs/common';
+import { NextFunction, Request, Response } from 'express';
 import { ViewService } from './view.service';
 
 @Controller('/')
@@ -7,8 +7,16 @@ export class ViewController {
   constructor(private viewService: ViewService) {}
 
   @Get('*')
-  static(@Req() req: Request, @Res() res: Response) {
-    const handle = this.viewService.getNextServer().getRequestHandler();
-    handle(req, res);
+  static(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Next() next: NextFunction,
+  ) {
+    if (req.url.startsWith('/api')) {
+      next();
+    } else {
+      const handle = this.viewService.getNextServer().getRequestHandler();
+      handle(req, res);
+    }
   }
 }
