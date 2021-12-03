@@ -7,6 +7,6 @@ export const configuration = () => ({
     uri: 'mongodb+srv://admin:admin@cluster0.mnmgy.mongodb.net/music-platform?retryWrites=true&w=majority',
   },
   folders: {
-    forUserFiles: 'static-users',
+    forUserFiles: 'public/users',
   },
 });

@@ -19,7 +19,7 @@ export class FileService {
       const fileName = uuid.v4() + '.' + fileExtension;
       const filePath = path.resolve(
         __dirname,
-        '..',
+        '../../../client',
         this.configService.get<string>('folders.forUserFiles'),
         type,
       );
