@@ -13,7 +13,7 @@ export class Album {
   @Prop()
   picture: string;
 
-  @Prop({ type: TrackSchema })
+  @Prop({ type: [TrackSchema] })
   @Type(() => Track)
   tracks: Track[];
 }

@@ -48,11 +48,6 @@ export class TrackService {
     return track;
   }
 
-  async delete(id: ObjectId): Promise<ObjectId> {
-    const track = await this.trackModel.findByIdAndDelete(id);
-    return track._id;
-  }
-
   async addComment(dto: CreateCommentDto): Promise<Comment> {
     const track = await this.trackModel.findById(dto.trackId);
     const comment = await this.commentModel.create({ ...dto });
@@ -65,6 +60,7 @@ export class TrackService {
     const track = await this.trackModel.findById(id);
     track.listens += 1;
     track.save();
+    return track;
   }
 
   async search(query: string): Promise<Track[]> {
@@ -72,5 +68,15 @@ export class TrackService {
       name: { $regex: new RegExp(query, 'i') },
     });
     return tracks;
+  }
+
+  async delete(id: ObjectId): Promise<ObjectId> {
+    const track = await this.trackModel.findById(id);
+    await Promise.all([
+      this.fileService.removeFile(track.audio),
+      this.fileService.removeFile(track.picture),
+      this.trackModel.deleteOne({ _id: id }),
+    ]);
+    return track._id;
   }
 }

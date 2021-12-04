@@ -41,11 +41,6 @@ export class AlbumService {
     return album;
   }
 
-  async delete(id: ObjectId): Promise<ObjectId> {
-    const album = await this.albumModel.findByIdAndDelete(id);
-    return album._id;
-  }
-
   async addTrack(id: ObjectId, trackId: ObjectId): Promise<Album> {
     const album = await this.albumModel.findById(id);
     const track = await this.trackModel.findById(trackId);
@@ -59,5 +54,14 @@ export class AlbumService {
       name: { $regex: new RegExp(query, 'i') },
     });
     return albums;
+  }
+
+  async delete(id: ObjectId): Promise<ObjectId> {
+    const album = await this.albumModel.findById(id);
+    await Promise.all([
+      this.fileService.removeFile(album.picture),
+      this.albumModel.deleteOne({ _id: id }),
+    ]);
+    return album._id;
   }
 }
