@@ -33,16 +33,19 @@ export class FileService {
     }
   }
 
-  removeFile(type: FileType, file: string): string {
+  removeFile(file: string): string {
     try {
-      const fileExtension = file.split('.').pop();
-      const fileName = uuid.v4() + '.' + fileExtension;
-      const filePath = path.resolve(__dirname, '..', 'static', type);
+      const filePath = path.resolve(
+        __dirname,
+        '../../../client',
+        this.configService.get<string>('folders.forUserFiles'),
+        file,
+      );
       if (!fs.existsSync(filePath)) {
         return;
       }
-      fs.unlinkSync(path.resolve(filePath, fileName));
-      return type + '/' + fileName;
+      fs.unlinkSync(filePath);
+      return file;
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }

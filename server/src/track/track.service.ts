@@ -50,6 +50,10 @@ export class TrackService {
 
   async delete(id: ObjectId): Promise<ObjectId> {
     const track = await this.trackModel.findByIdAndDelete(id);
+    await Promise.all([
+      this.fileService.removeFile(track.audio),
+      this.fileService.removeFile(track.picture),
+    ]);
     return track._id;
   }
 
@@ -65,6 +69,7 @@ export class TrackService {
     const track = await this.trackModel.findById(id);
     track.listens += 1;
     track.save();
+    return track;
   }
 
   async search(query: string): Promise<Track[]> {
