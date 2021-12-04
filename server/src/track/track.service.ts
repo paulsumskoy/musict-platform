@@ -49,10 +49,11 @@ export class TrackService {
   }
 
   async delete(id: ObjectId): Promise<ObjectId> {
-    const track = await this.trackModel.findByIdAndDelete(id);
+    const track = await this.trackModel.findById(id);
     await Promise.all([
       this.fileService.removeFile(track.audio),
       this.fileService.removeFile(track.picture),
+      this.trackModel.deleteOne({ _id: id }),
     ]);
     return track._id;
   }

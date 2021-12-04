@@ -13,13 +13,13 @@ import { TrackSchema, Track } from './schemas/track.schema';
 import { CommentSchema, Comment } from './schemas/comment.schema';
 import { unlinkSync, readFileSync, existsSync } from 'fs';
 import { join } from 'path';
-import { ObjectId } from 'mongoose';
+import { ObjectId, SchemaTypes } from 'mongoose';
 
 describe('TrackService', () => {
   let service: TrackService;
   let configService: ConfigService;
 
-  let testId: ObjectId;
+  let testId;
 
   const testTrack = {
     name: 'test-name',
@@ -42,7 +42,7 @@ describe('TrackService', () => {
   let audioPath: string;
   let picturePath: string;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         rootMongooseTestModule(),
@@ -67,7 +67,7 @@ describe('TrackService', () => {
   });
 
   it('should create track', async () => {
-    const track = await service.create(
+    const track = (await service.create(
       testTrack,
       {
         originalname: 'test-picture.jpg',
@@ -77,7 +77,7 @@ describe('TrackService', () => {
         originalname: 'test-picture.mpga',
         buffer: testAudio,
       } as Express.Multer.File,
-    );
+    )) as Track & { _id: ObjectId };
 
     expect(track).toBeDefined();
     expect(track._id).toBeDefined();
@@ -124,7 +124,7 @@ describe('TrackService', () => {
   it('should search track', async () => {
     const tracks = await service.search('test');
     expect(tracks).toBeDefined();
-    expect(tracks[0].listens).toBe(1);
+    expect(tracks[0].name).toBe(testTrack.name);
   });
 
   it('should add comment track', async () => {
@@ -154,7 +154,7 @@ describe('TrackService', () => {
     if (existsSync(picturePath)) {
       unlinkSync(picturePath);
     }
-    if (testId) {
+    if (await service.getOne(testId)) {
       await service.delete(testId);
     }
     return closeInMongodConnection();
