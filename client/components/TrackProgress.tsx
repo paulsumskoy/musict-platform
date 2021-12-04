@@ -10,9 +10,9 @@ const TrackProgress: React.FC<TrackProgressProps> =
 ({
     left, right, onChange
 }) => {
-    return(
+    return (
         <div style={{display: 'flex'}}>
-            <input 
+            <input
                 type="range"
                 min={0}
                 max={right}

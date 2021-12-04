@@ -1,4 +1,4 @@
-import { ITrack } from "./tracks";
+import { ITrack } from "./track";
 
 export interface PlayerState {
     active: null | ITrack;
@@ -35,15 +35,15 @@ interface SetVolumeAction {
     type: PlayerActionTypes.SET_VOLUME,
     payload: number;
 }
-interface SetCurretTimeAction {
+interface SetCurrentTimeAction {
     type: PlayerActionTypes.SET_CURRENT_TIME,
     payload: number;
 }
 
-export type PlayerAction = 
+export type PlayerAction =
     PlayAction
     | PauseAction
     | SetActiveAction
     | SetDurationAction
     | SetVolumeAction
-    | SetCurretTimeAction
+    | SetCurrentTimeAction

@@ -1,6 +1,6 @@
 import { Box, Grid } from "@material-ui/core";
 import React from "react";
-import { ITrack } from "../types/tracks";
+import { ITrack } from "../types/track";
 import TrackItem from "./TrackItem";
 
 interface TrackListProps {
@@ -16,7 +16,7 @@ const TrackList: React.FC<TrackListProps> = ({tracks}) => {
                 <TrackItem
                     key={track._id}
                     track={track}
-                />    
+                />
             )}
         </Box>
     </Grid>

@@ -1,10 +1,11 @@
 import { Card, Grid, IconButton } from "@material-ui/core";
 import React from "react";
-import { ITrack } from "../types/tracks";
+import { ITrack } from "../types/track";
 import styles from '../styles/TrackItem.module.scss';
 import { Delete, Pause, PlayArrow } from "@material-ui/icons";
 import { useRouter } from "next/router";
 import { useActions } from "../hooks/useActions";
+import Image from 'next/image';
 
 interface TrackItemProps {
     track: ITrack;
@@ -12,7 +13,7 @@ interface TrackItemProps {
 }
 
 const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
-    const router = useRouter()
+    const router = useRouter();
     const {playTrack, pauseTrack, setActiveTrack} = useActions()
 
     const play = (e) => {
@@ -29,7 +30,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
                     :<PlayArrow/> 
                 }
             </IconButton>
-            <img width={70} height={70} src={track.picture}/>
+            <Image src={track.picture} alt="Track picture" width={70} height={70} />
             <Grid container direction="column" style={{width: 200, margin: '0 20px'}}>
                 <div>{track.name}</div>
                 <div style={{fontSize: 12, color: 'gray'}}>{track.artist}</div>

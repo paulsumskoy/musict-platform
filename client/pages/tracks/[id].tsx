@@ -1,8 +1,8 @@
 import { Button, Grid, TextField } from "@material-ui/core";
 import { useRouter } from "next/router";
 import React from "react";
-import MainLayout from "../../layouts/MainLayot";
-import { ITrack } from "../../types/tracks";
+import MainLayout from "../../layouts/MainLayout";
+import { ITrack } from "../../types/track";
 
 const TrackPage = () => {
     const track: ITrack = {_id: '1', name: "Walking", artist: "Jesper Kyd", text: "lalala", listens: 5, audio: 'http://localhost:5000/audio/first.mp3', picture: "http://localhost:5000/image/first.jpg", comments: []}

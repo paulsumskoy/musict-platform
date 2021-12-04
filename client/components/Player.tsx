@@ -1,21 +1,20 @@
-import { Grid, IconButton } from "@material-ui/core";
-import { Pause, PlayArrow, VolumeUp } from "@material-ui/icons";
-import React, { useEffect } from "react";
-import { useActions } from "../hooks/useActions";
-import { useTypeSelector } from "../hooks/useTypeSelector";
-import { setVolume } from "../store/action-creators/player";
-import styles from '../styles/Player.module.scss';
-import { ITrack } from "../types/tracks";
+import React, {useEffect} from 'react';
+import {Pause, PlayArrow, VolumeUp} from "@material-ui/icons";
+import {Grid, IconButton} from "@material-ui/core";
+import styles from '../styles/Player.module.scss'
+import {ITrack} from "../types/track";
 import TrackProgress from "./TrackProgress";
+import {useTypedSelector} from "../hooks/useTypedSelector";
+import {useActions} from "../hooks/useActions";
 
 let audio;
 
 const Player = () => {
-    const {pause, volume, active, duration, currentTime} = useTypeSelector(state => state.player)
+    const {pause, volume, active, duration, currentTime} = useTypedSelector(state => state.player)
     const {pauseTrack, playTrack, setVolume, setCurrentTime, setDuration, setActiveTrack} = useActions()
 
     useEffect( () => {
-        if(!audio){
+        if (!audio) {
             audio = new Audio()
         } else {
             setAudio()
@@ -63,7 +62,7 @@ const Player = () => {
         <div className={styles.player}>
             <IconButton onClick={play}>
                 {pause
-                    ? <PlayArrow/> 
+                    ? <PlayArrow/>
                     : <Pause/>
                 }
             </IconButton>

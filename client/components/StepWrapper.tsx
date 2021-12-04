@@ -1,5 +1,5 @@
 import { Card, Container, Grid, Step, StepLabel, Stepper } from "@material-ui/core";
-import React, { Children } from "react";
+import React from "react";
 
 interface StepWrapperProps {
     activeStep: number;
@@ -12,13 +12,13 @@ const StepWrapper: React.FC<StepWrapperProps> = ({activeStep, children}) => {
     return (
         <Container>
             <Stepper activeStep={activeStep}>
-                {steps.map((step, index) => 
+                {steps.map((step, index) =>
                     <Step
                         key={index}
                         completed={activeStep > index}
                     >
                         <StepLabel>{step}</StepLabel>
-                    </Step>   
+                    </Step>
                 )}
             </Stepper>
             <Grid container justifyContent="center" style={{margin: '70px 0', height: 270}}>
