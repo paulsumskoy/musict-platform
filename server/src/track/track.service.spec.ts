@@ -1,25 +1,24 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MongooseModule } from '@nestjs/mongoose';
-
-import { TrackService } from './track.service';
-import { FileService } from '../file/file.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { configuration } from '../config/configuration';
+import { ObjectId } from 'mongoose';
 import {
   closeInMongodConnection,
   rootMongooseTestModule,
 } from '../test-utils/mongo/MongooseTestModule';
 import { TrackSchema, Track } from './schemas/track.schema';
 import { CommentSchema, Comment } from './schemas/comment.schema';
+import { TrackService } from './track.service';
+import { FileService } from '../file/file.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { configuration } from '../config/configuration';
 import { unlinkSync, readFileSync, existsSync } from 'fs';
 import { join } from 'path';
-import { ObjectId, SchemaTypes } from 'mongoose';
 
 describe('TrackService', () => {
   let service: TrackService;
   let configService: ConfigService;
 
-  let testId;
+  let testId: ObjectId;
 
   const testTrack = {
     name: 'test-name',
@@ -74,7 +73,7 @@ describe('TrackService', () => {
         buffer: testPicture,
       } as Express.Multer.File,
       {
-        originalname: 'test-picture.mpga',
+        originalname: 'test-audio.mpga',
         buffer: testAudio,
       } as Express.Multer.File,
     )) as Track & { _id: ObjectId };
@@ -109,7 +108,7 @@ describe('TrackService', () => {
     expect(track.name).toBe(testTrack.name);
   });
 
-  it('should get all track', async () => {
+  it('should get all tracks', async () => {
     const tracks = await service.getAll();
     expect(tracks).toBeDefined();
     expect(tracks[0].name).toBe(testTrack.name);
@@ -127,7 +126,7 @@ describe('TrackService', () => {
     expect(tracks[0].name).toBe(testTrack.name);
   });
 
-  it('should add comment track', async () => {
+  it('should add comment to track', async () => {
     const comment = await service.addComment({
       ...testComment,
       trackId: testId,

@@ -25,7 +25,7 @@ export class Track {
   @Prop()
   audio: string;
 
-  @Prop({ type: CommentSchema })
+  @Prop({ type: [CommentSchema] })
   @Type(() => Comment)
   comments: Comment[];
 }
