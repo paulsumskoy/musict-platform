@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { query } from "express";
 import { Model, ObjectId } from "mongoose";
 import { FileService, FileType } from "src/file/file.service";
 import { CreateCommentDto } from "./dto/create-comment.dto";
@@ -12,7 +11,7 @@ import { Track, TrackDocument } from "./schemas/track.schema";
 @Injectable()
 export class TrackService {
 
-    constructor(@InjectModel(Track.name) private trackModel: Model<TrackDocument>, 
+    constructor(@InjectModel(Track.name) private trackModel: Model<TrackDocument>,
                 @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
                 private fileService: FileService) {}
 
@@ -23,7 +22,7 @@ export class TrackService {
         return track;
     }
 
-    async getAll(count= 10, offset = 0): Promise<Track[]> {
+    async getAll(count = 10, offset = 0): Promise<Track[]> {
         const tracks = await this.trackModel.find().skip(Number(offset)).limit(Number(count));
         return tracks;
     }
@@ -47,7 +46,7 @@ export class TrackService {
     }
 
     async listen(id: ObjectId) {
-        const track = await  this.trackModel.findById(id);
+        const track = await this.trackModel.findById(id);
         track.listens += 1
         track.save()
     }

@@ -13,7 +13,7 @@ const Player = () => {
     const {pause, volume, active, duration, currentTime} = useTypedSelector(state => state.player)
     const {pauseTrack, playTrack, setVolume, setCurrentTime, setDuration, setActiveTrack} = useActions()
 
-    useEffect( () => {
+    useEffect(() => {
         if (!audio) {
             audio = new Audio()
         } else {
@@ -24,7 +24,7 @@ const Player = () => {
 
     const setAudio = () => {
         if (active) {
-            audio.src = active.audio
+            audio.src = 'http://localhost:5000/' + active.audio
             audio.volume = volume / 100
             audio.onloadedmetadata = () => {
                 setDuration(Math.ceil(audio.duration))
@@ -47,7 +47,7 @@ const Player = () => {
 
     const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
         audio.volume = Number(e.target.value) / 100
-        setVolume(Number(e.target.value)) 
+        setVolume(Number(e.target.value))
     }
     const changeCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
         audio.currentTime = Number(e.target.value)

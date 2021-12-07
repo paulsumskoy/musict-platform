@@ -5,7 +5,6 @@ import styles from '../styles/TrackItem.module.scss';
 import { Delete, Pause, PlayArrow } from "@material-ui/icons";
 import { useRouter } from "next/router";
 import { useActions } from "../hooks/useActions";
-import Image from 'next/image';
 
 interface TrackItemProps {
     track: ITrack;

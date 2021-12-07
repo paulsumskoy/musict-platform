@@ -16,7 +16,7 @@ const Create = () => {
     }
 
     const back = () => {
-        setActiveStep(prev => prev - 1)
+        setActiveStep(prev => prev - 1);
     }
 
     return (

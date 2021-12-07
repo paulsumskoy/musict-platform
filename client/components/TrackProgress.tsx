@@ -6,10 +6,10 @@ interface TrackProgressProps {
     onChange: (e) => void
 }
 
-const TrackProgress: React.FC<TrackProgressProps> = 
-({
+const TrackProgress: React.FC<TrackProgressProps> =
+    ({
     left, right, onChange
-}) => {
+    }) => {
     return (
         <div style={{display: 'flex'}}>
             <input
