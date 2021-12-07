@@ -1,10 +1,10 @@
 import { PlayerAction, PlayerActionTypes, PlayerState } from "../../types/player"
 
 const initialState: PlayerState = {
-    currenTime: 0,
+    currentTime: 0,
     duration: 0,
     active: null,
-    volume: 0,
+    volume: 50,
     pause: true
 }
 
@@ -15,13 +15,13 @@ export const playerReducer = (state = initialState, action: PlayerAction): Playe
         case PlayerActionTypes.PLAY:   
             return {...state, pause: false}
         case PlayerActionTypes.SET_CURRENT_TIME:   
-            return {...state, currenTime: action.payload}
+            return {...state, currentTime: action.payload}
         case PlayerActionTypes.SET_VOLUME:   
             return {...state, volume: action.payload}
         case PlayerActionTypes.SET_DURATION:   
-            return {...state, duration: action.playload}
+            return {...state, duration: action.payload}
         case PlayerActionTypes.SET_ACTIVE:   
-            return {...state, active: action.playload, duration: 0, currenTime: 0}    
+            return {...state, active: action.payload, duration: 0, currentTime: 0}    
         default:
             return state
     }

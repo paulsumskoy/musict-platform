@@ -1,10 +1,10 @@
-import { ITrack } from "./tracks";
+import { ITrack } from "./track";
 
 export interface PlayerState {
     active: null | ITrack;
     volume: number;
     duration: number;
-    currenTime: number;
+    currentTime: number;
     pause: boolean;
 }
 
@@ -35,7 +35,7 @@ interface SetVolumeAction {
     type: PlayerActionTypes.SET_VOLUME,
     payload: number;
 }
-interface SetCurretTimeAction {
+interface SetCurrentTimeAction {
     type: PlayerActionTypes.SET_CURRENT_TIME,
     payload: number;
 }
@@ -46,4 +46,4 @@ export type PlayerAction =
     | SetActiveAction
     | SetDurationAction
     | SetVolumeAction
-    | SetCurretTimeAction
+    | SetCurrentTimeAction
