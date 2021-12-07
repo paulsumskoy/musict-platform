@@ -20,7 +20,7 @@ const Player = () => {
             setAudio()
             play()
         }
-    }), [active]
+    }, [active])
 
     const setAudio = () => {
         if (active) {
@@ -32,6 +32,16 @@ const Player = () => {
             audio.ontimeupdate = () => {
                 setCurrentTime(Math.ceil(audio.currentTime))
             }
+        }
+    }
+    
+    const play = () => {
+        if (pause) {
+            playTrack()
+            audio.play()
+        } else {
+            pauseTrack()
+            audio.pause()
         }
     }
 
@@ -48,15 +58,6 @@ const Player = () => {
         return null
     }
 
-    const play = () => {
-        if (pause) {
-            playTrack()
-            audio.play()
-        } else {
-            pauseTrack()
-            audio.pause()
-        }
-    }
     return(
         <div className={styles.player}>
             <IconButton onClick={play}>
