@@ -30,7 +30,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
                     :<PlayArrow/> 
                 }
             </IconButton>
-            <Image src={track.picture} alt="Track picture" width={70} height={70} />
+            <img width={70} height={70} src={'http://localhost:5000/' + track.picture}/>
             <Grid container direction="column" style={{width: 200, margin: '0 20px'}}>
                 <div>{track.name}</div>
                 <div style={{fontSize: 12, color: 'gray'}}>{track.artist}</div>
@@ -39,7 +39,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
             <IconButton onClick={e => e.stopPropagation()} style={{marginLeft: 'auto'}}>
                 <Delete/>
             </IconButton>
-        </Card> 
+        </Card>
     );
 };
 
