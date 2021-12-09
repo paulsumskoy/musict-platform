@@ -2,7 +2,7 @@ import { Button, Grid, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import FileUpload from "../../components/FileUpload";
 import StepWrapper from "../../components/StepWrapper";
-import MainLayout from "../../layouts/MainLayot";
+import MainLayout from "../../layouts/MainLayout";
 
 const Create = () => {
     const [activeStep, setActiveStep] = useState(0)

@@ -1,8 +1,8 @@
 import { Button, Grid, TextField } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import React from 'react';
-import MainLayout from '../../layouts/MainLayot';
-import { ITrack } from '../../types/tracks';
+import MainLayout from '../../layouts/MainLayout';
+import { ITrack } from '../../types/track';
 import Image from 'next/image';
 
 const TrackPage = () => {
