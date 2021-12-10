@@ -11,9 +11,9 @@ import { useDispatch } from 'react-redux';
 const Index = () => {
     const router = useRouter()
     const {tracks, error} = useTypedSelector(state => state.track)
-    const [querry, setQuerry] = useState<string>('')
-    const dispatch = useDispatch as NextThunkDispatch;
-    const [timer, setTimer] = useState(null)
+    //const [querry, setQuerry] = useState<string>('')
+    //const dispatch = useDispatch as NextThunkDispatch;
+    //const [timer, setTimer] = useState(null)
 
     /*const search = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setQuerry(e.target.value)
@@ -63,7 +63,3 @@ export const getServerSideProps = wrapper.getServerSideProps(
         return { props: {} }
     }
 );
-
-function async() {
-    throw new Error('Function not implemented.');
-}
