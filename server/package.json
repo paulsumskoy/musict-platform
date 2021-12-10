@@ -19,7 +19,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/e2e/jest/jest-e2e.json"
+    "test:e2e": "jest --config ./test/e2e/jest/jest-e2e.json",
+    "test:e2e:playwright": "playwright test --headed --debug --browser=chromium --workers=1 --config=./test/playwright.dev.config.ts",
+    "ci:test:e2e:playwright": "playwright test --browser=chromium --config=./test/playwright.dev.ts"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -28,7 +30,6 @@
     "@nestjs/mongoose": "^9.0.1",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/serve-static": "^2.2.2",
-    "@playwright/test": "^1.17.0",
     "class-transformer": "^0.5.1",
     "joi": "^17.4.3",
     "mongoose": "^6.0.12",
@@ -41,6 +42,7 @@
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
+    "@playwright/test": "^1.17.1",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.0.3",
     "@types/multer": "^1.4.7",
