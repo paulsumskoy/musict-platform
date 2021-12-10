@@ -1,22 +1,31 @@
 import { Button, Grid, TextField } from '@material-ui/core';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import MainLayout from '../../layouts/MainLayout';
 import { ITrack } from '../../types/track';
 import Image from 'next/image';
+import { useInput } from '../../hooks/useInput';
+import { GetServerSideProps } from 'next';
+import axios from "axios";
 
-const TrackPage = () => {
-  const track: ITrack = {
-    _id: '1',
-    name: 'Walking',
-    artist: 'Jesper Kyd',
-    text: 'lalala',
-    listens: 5,
-    audio: 'http://localhost:5000/audio/first.mp3',
-    picture: 'http://localhost:5000/image/first.jpg',
-    comments: [],
-  };
+const TrackPage = ({serverTrack}) => {
+  const [track, setTrack] = useState<ITrack>(serverTrack)
+  const username = useInput('')
+  const text = useInput('')
   const router = useRouter();
+
+  const addComment = async () => {
+    try {
+        const response = await axios.post('http://localhost:5000/tracks/comment', {
+            username: username.value,
+            text: text.value,
+            trackId: track._id
+        })
+        setTrack({...track, comments: [...track.comments, response.data]})
+    } catch (e) {
+        console.log(e)
+    }
+}
 
   return (
     <MainLayout>
@@ -44,9 +53,9 @@ const TrackPage = () => {
       <p>{track.text}</p>
       <h1>Comments</h1>
       <Grid container>
-        <TextField label="Your name" fullWidth />
+        <TextField label="Your name" fullWidth {...text}/>
         <TextField label="Comment" fullWidth multiline rows={4} />
-        <Button>Send</Button>
+        <Button onClick={addComment}>Send</Button>
       </Grid>
       <div>
         {track.comments.map((comment, i) => (
@@ -61,3 +70,12 @@ const TrackPage = () => {
 };
 
 export default TrackPage;
+
+export const getServerSideProps: GetServerSideProps = async ({params}) => {
+  const response = await axios.get('http://localhost:5000/tracks/' + params.id)
+  return {
+      props: {
+          serverTrack: response.data
+      }
+  }
+}
