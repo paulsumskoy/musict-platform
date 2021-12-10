@@ -1,4 +1,4 @@
-# musict-platform
+# music-platform
 
 npm run start:dev - запуск сервера
 
