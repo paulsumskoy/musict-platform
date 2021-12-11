@@ -1,17 +1,20 @@
-import { TrackAction, TrackActionTypes, TrackState } from "../../types/track";
+import { TrackAction, TrackActionTypes, TrackState } from '../../types/track';
 
 const initialState: TrackState = {
-    tracks: [], 
-    error: ''
-}
+  tracks: [],
+  error: '',
+};
 
-export const trackReducer = (state = initialState, action: TrackAction): TrackState => {
-    switch (action.type) {
-        case TrackActionTypes.FETCH_TRACKS_ERROR:
-            return {...state, error: action.payload}
-        case TrackActionTypes.FETCH_TRACKS:
-            return {error: '', tracks: action.payload}
-        default:
-            return state
-    }
-}
+export const trackReducer = (
+  state = initialState,
+  action: TrackAction
+): TrackState => {
+  switch (action.type) {
+    case TrackActionTypes.FETCH_TRACKS_ERROR:
+      return { ...state, error: action.payload };
+    case TrackActionTypes.FETCH_TRACKS:
+      return { error: '', tracks: action.payload };
+    default:
+      return state;
+  }
+};

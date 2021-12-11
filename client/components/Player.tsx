@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
-import {Pause, PlayArrow, VolumeUp} from "@material-ui/icons";
-import {Grid, IconButton} from "@material-ui/core";
-import styles from '../styles/Player.module.scss'
-import {ITrack} from "../types/track";
-import TrackProgress from "./TrackProgress";
-import {useTypedSelector} from "../hooks/useTypedSelector";
-import {useActions} from "../hooks/useActions";
+import { Grid, IconButton } from '@material-ui/core';
+import { Pause, PlayArrow, VolumeUp } from '@material-ui/icons';
+import React, { useEffect } from 'react';
+import { useActions } from '../hooks/useActions';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+import styles from '../styles/Player.module.scss';
+import { ITrack } from '../types/track';
+import TrackProgress from './TrackProgress';
+import { setVolume } from '../store/actions-creators/player';
 
 let audio;
-
 const Player = () => {
     const {pause, volume, active, duration, currentTime} = useTypedSelector(state => state.player)
     const {pauseTrack, playTrack, setVolume, setCurrentTime, setDuration, setActiveTrack} = useActions()
@@ -44,6 +44,7 @@ const Player = () => {
             audio.pause()
         }
     }
+  }, [active]);
 
     const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
         audio.volume = Number(e.target.value) / 100
@@ -51,7 +52,7 @@ const Player = () => {
     }
     const changeCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
         audio.currentTime = Number(e.target.value)
-        setCurrentTime(Number(e.target.value)) 
+        setCurrentTime(Number(e.target.value))
     }
 
     if (!active) {
@@ -76,5 +77,4 @@ const Player = () => {
         </div>
     );
 };
-
 export default Player;

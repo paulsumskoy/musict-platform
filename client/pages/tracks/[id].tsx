@@ -28,11 +28,11 @@ const TrackPage = ({serverTrack}) => {
     }
 
     return(
-        <MainLayout 
+        <MainLayout
         title={"Music platform - " + track.name + " - " + track.artist}
         keywords={'Music, name, artists ' + track.name + ", " + track.artist}
         >
-            <Button 
+            <Button
                 variant={"outlined"}
                 style={{fontSize: 32}}
                 onClick={() => router.push('/tracks')}
@@ -66,11 +66,11 @@ const TrackPage = ({serverTrack}) => {
                 <Button onClick={addComment}>Send</Button>
             </Grid>
             <div>
-                {track.comments.map(comment =>
-                  <div>
+                {track.comments.map(comment, i) =>
+                  <div key={i}>
                       <div>User Name - {comment.username}</div>
                       <div>Comment - {comment.text}</div>
-                  </div>  
+                  </div>
                 )}
             </div>
         </MainLayout>
@@ -79,11 +79,11 @@ const TrackPage = ({serverTrack}) => {
 
 export default TrackPage;
 
-export const getServerSideProps: GetServerSideProps = async ({params}) => {
-    const response = await axios.get('http://localhost:5000/tracks/' + params.id)
-    return {
-        props: {
-            serverTrack: response.data
-        }
-    }
-}
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const response = await axios.get('/api/tracks/' + params.id);
+  return {
+    props: {
+      serverTrack: response.data,
+    },
+  };
+};
