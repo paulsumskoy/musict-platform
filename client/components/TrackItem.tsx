@@ -5,7 +5,7 @@ import styles from '../styles/TrackItem.module.scss';
 import { Delete, Pause, PlayArrow } from '@material-ui/icons';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { useActions } from "../hooks/useActions";
+import { useActions } from '../hooks/useActions';
 
 interface TrackItemProps {
   track: ITrack;
@@ -14,13 +14,13 @@ interface TrackItemProps {
 
 const TrackItem: React.FC<TrackItemProps> = ({ track, active = false }) => {
   const router = useRouter();
-  const {playTrack, pauseTrack, setActiveTrack} = useActions()
+  const { playTrack, pauseTrack, setActiveTrack } = useActions();
 
-  const play = (e) => {
-      e.stopPropagation()
-      setActiveTrack(track)
-      playTrack()
-  }
+  const play = e => {
+    e.stopPropagation();
+    setActiveTrack(track);
+    playTrack();
+  };
 
   return (
     <Card
