@@ -1,9 +1,9 @@
 import * as Joi from 'joi';
 
 export const validationSchema = Joi.object({
-  dev: Joi.boolean().default(true),
+  dev: Joi.boolean(),
   server: {
-    port: Joi.number().default(5000),
+    port: Joi.number(),
   },
   database: {
     uri: Joi.string().required(),

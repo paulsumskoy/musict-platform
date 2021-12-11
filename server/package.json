@@ -15,13 +15,13 @@
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
-    "test:unit": "jest src --detectOpenHandles",
+    "test:unit": "jest src --detectOpenHandles --testTimeout=30000",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/e2e/jest/jest-e2e.json",
     "test:e2e:playwright": "playwright test --headed --debug --browser=chromium --workers=1 --config=./test/playwright.dev.config.ts",
-    "ci:test:e2e:playwright": "playwright test --browser=chromium --config=./test/playwright.dev.ts"
+    "ci:test:e2e:playwright": "playwright install --with-deps chromium && playwright test --browser=chromium --config=./test/playwright.dev.ts"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

@@ -10,9 +10,10 @@ export class ViewService implements OnModuleInit {
   private server: NextServer;
 
   async onModuleInit(): Promise<void> {
+    console.log({ dev: this.configService.get<boolean>('dev') });
     try {
       this.server = next({
-        dev: false, // dev: this.configService.get<boolean>('dev'),
+        dev: this.configService.get<boolean>('dev'),
         dir: '../client',
       });
       await this.server.prepare();

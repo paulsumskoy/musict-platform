@@ -13,67 +13,61 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import {useRouter} from "next/router";
+import { useRouter } from 'next/router';
 
 const menuItems = [
-    {text: 'Main', href: '/'},
-    {text: 'Track List', href: '/tracks'},
-    {text: 'Album List', href: '/albums'},
-]
+  { text: 'Main', href: '/' },
+  { text: 'Track List', href: '/tracks' },
+  { text: 'Album List', href: '/albums' },
+];
 
 export default function Navbar() {
-    const [open, setOpen] = React.useState(false);
-    const router = useRouter()
+  const [open, setOpen] = React.useState(false);
+  const router = useRouter();
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
 
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
-    return (
+  return (
+    <div>
+      <CssBaseline />
+      <AppBar position="fixed">
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            Persistent drawer
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer variant="persistent" anchor="left" open={open}>
         <div>
-            <CssBaseline />
-            <AppBar
-                position="fixed"
-            >
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Persistent drawer
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                variant="persistent"
-                anchor="left"
-                open={open}
-            >
-                <div>
-                    <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon />
-                    </IconButton>
-                </div>
-                <List>
-                    {menuItems.map(({text, href}, index) => (
-                        <ListItem button key={href} onClick={() => router.push(href)}>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
-            </Drawer>
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronLeftIcon />
+          </IconButton>
         </div>
-    );
+        <List>
+          {menuItems.map(({ text, href }, index) => (
+            <ListItem button key={href} onClick={() => router.push(href)}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+    </div>
+  );
 }

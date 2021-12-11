@@ -6,26 +6,26 @@ import { ITrack } from '../../types/track';
 import Image from 'next/image';
 import { useInput } from '../../hooks/useInput';
 import { GetServerSideProps } from 'next';
-import axios from "axios";
+import axios from 'axios';
 
-const TrackPage = ({serverTrack}) => {
-  const [track, setTrack] = useState<ITrack>(serverTrack)
-  const username = useInput('')
-  const text = useInput('')
+const TrackPage = ({ serverTrack }) => {
+  const [track, setTrack] = useState<ITrack>(serverTrack);
+  const username = useInput('');
+  const text = useInput('');
   const router = useRouter();
 
   const addComment = async () => {
     try {
-        const response = await axios.post('http://localhost:5000/tracks/comment', {
-            username: username.value,
-            text: text.value,
-            trackId: track._id
-        })
-        setTrack({...track, comments: [...track.comments, response.data]})
+      const response = await axios.post('/tracks/comment', {
+        username: username.value,
+        text: text.value,
+        trackId: track._id,
+      });
+      setTrack({ ...track, comments: [...track.comments, response.data] });
     } catch (e) {
-        console.log(e)
+      console.log(e);
     }
-}
+  };
 
   return (
     <MainLayout>
@@ -38,7 +38,7 @@ const TrackPage = ({serverTrack}) => {
       </Button>
       <Grid container style={{ margin: '20px 0' }}>
         <Image
-          src={track.picture}
+          src={'/users/' + track.picture}
           alt="Track picture"
           width={200}
           height={200}
@@ -53,7 +53,7 @@ const TrackPage = ({serverTrack}) => {
       <p>{track.text}</p>
       <h1>Comments</h1>
       <Grid container>
-        <TextField label="Your name" fullWidth {...text}/>
+        <TextField label="Your name" fullWidth {...text} />
         <TextField label="Comment" fullWidth multiline rows={4} />
         <Button onClick={addComment}>Send</Button>
       </Grid>
@@ -71,11 +71,11 @@ const TrackPage = ({serverTrack}) => {
 
 export default TrackPage;
 
-export const getServerSideProps: GetServerSideProps = async ({params}) => {
-  const response = await axios.get('http://localhost:5000/tracks/' + params.id)
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const response = await axios.get('/api/tracks/' + params.id);
   return {
-      props: {
-          serverTrack: response.data
-      }
-  }
-}
+    props: {
+      serverTrack: response.data,
+    },
+  };
+};
