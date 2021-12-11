@@ -1,72 +1,80 @@
-import { Button, Grid, TextField } from '@material-ui/core';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import MainLayout from '../../layouts/MainLayout';
-import { ITrack } from '../../types/track';
-import Image from 'next/image';
-import { useInput } from '../../hooks/useInput';
-import { GetServerSideProps } from 'next';
-import axios from 'axios';
+import { Button, Grid, TextField } from "@material-ui/core";
+import { PanoramaSharp } from "@material-ui/icons";
+import axios from "axios";
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { useInput } from "../../hooks/useInput";
+import MainLayout from "../../layouts/MainLayout";
+import { ITrack } from "../../types/track";
 
-const TrackPage = ({ serverTrack }) => {
-  const [track, setTrack] = useState<ITrack>(serverTrack);
-  const username = useInput('');
-  const text = useInput('');
-  const router = useRouter();
+const TrackPage = ({serverTrack}) => {
+    const [track, setTrack] = useState<ITrack>(serverTrack)
+    const router = useRouter()
+    const username = useInput('')
+    const text = useInput('')
 
-  const addComment = async () => {
-    try {
-      const response = await axios.post('/tracks/comment', {
-        username: username.value,
-        text: text.value,
-        trackId: track._id,
-      });
-      setTrack({ ...track, comments: [...track.comments, response.data] });
-    } catch (e) {
-      console.log(e);
+    const addComment = async () => {
+        try {
+            const response = await axios.post('http://localhost:5000/tracks/comment', {
+                username: username.value,
+                text: text.value,
+                trackId: track._id
+            })
+            setTrack({...track, comments: [...track.comments, response.data]})
+        } catch (e) {
+            console.log(e)
+        }
     }
-  };
 
-  return (
-    <MainLayout>
-      <Button
-        variant={'outlined'}
-        style={{ fontSize: 32 }}
-        onClick={() => router.push('/tracks')}
-      >
-        To the list
-      </Button>
-      <Grid container style={{ margin: '20px 0' }}>
-        <Image
-          src={'/users/' + track.picture}
-          alt="Track picture"
-          width={200}
-          height={200}
-        />
-        <div style={{ marginLeft: '30' }}>
-          <h1>Track name - {track.name}</h1>
-          <h1>Artist - {track.artist}</h1>
-          <h1>Listens - {track.listens}</h1>
-        </div>
-      </Grid>
-      <h1>Lyrics</h1>
-      <p>{track.text}</p>
-      <h1>Comments</h1>
-      <Grid container>
-        <TextField label="Your name" fullWidth {...text} />
-        <TextField label="Comment" fullWidth multiline rows={4} />
-        <Button onClick={addComment}>Send</Button>
-      </Grid>
-      <div>
-        {track.comments.map((comment, i) => (
-          <div key={i}>
-            <div>User Name - {comment.username}</div>
-            <div>Comment - {comment.text}</div>
-          </div>
-        ))}
-      </div>
-    </MainLayout>
-  );
+    return(
+        <MainLayout
+        title={"Music platform - " + track.name + " - " + track.artist}
+        keywords={'Music, name, artists ' + track.name + ", " + track.artist}
+        >
+            <Button
+                variant={"outlined"}
+                style={{fontSize: 32}}
+                onClick={() => router.push('/tracks')}
+            >
+                To the list
+            </Button>
+            <Grid container style={{margin: '20px 0'}}>
+                <img src={'http://localhost:5000/' + track.picture} width={200} height={200}/>
+                <div style={{marginLeft: 30}}>
+                    <h1>Track name - {track.name}</h1>
+                    <h1>Artist - {track.artist}</h1>
+                    <h1>Listens - {track.listens}</h1>
+                </div>
+            </Grid>
+            <h1>Lyrics</h1>
+            <p>{track.text}</p>
+            <h1>Comments</h1>
+            <Grid container>
+                <TextField
+                    label="Your name"
+                    fullWidth
+                    {...username}
+                />
+                <TextField
+                    label="Comment"
+                    {...text}
+                    fullWidth
+                    multiline
+                    rows={4}
+                />
+                <Button onClick={addComment}>Send</Button>
+            </Grid>
+            <div>
+                {track.comments.map(comment, i) =>
+                  <div key={i}>
+                      <div>User Name - {comment.username}</div>
+                      <div>Comment - {comment.text}</div>
+                  </div>
+                )}
+            </div>
+        </MainLayout>
+    );
 };
 
 export default TrackPage;

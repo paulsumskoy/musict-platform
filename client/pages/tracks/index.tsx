@@ -37,3 +37,13 @@ const Index = () => {
 };
 
 export default Index;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+    store => async () =>
+    {
+        const dispatch = store.dispatch as NextThunkDispatch;
+        await dispatch(fetchTracks());
+
+        return { props: {} }
+    }
+);
