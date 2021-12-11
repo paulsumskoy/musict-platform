@@ -24,7 +24,7 @@ import { validationSchema } from './config/validation';
     }),
     TrackModule,
     AlbumModule,
-    // ViewModule,
+    ViewModule,
     FileService,
   ],
 })
