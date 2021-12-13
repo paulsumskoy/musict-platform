@@ -6,7 +6,7 @@ import { useTypedSelector } from '../hooks/useTypedSelector';
 import styles from '../styles/Player.module.scss';
 import { ITrack } from '../types/track';
 import TrackProgress from './TrackProgress';
-import { setVolume } from '../store/actions-creators/player';
+import { setCurrentTime, setVolume } from '../store/actions-creators/player';
 
 let audio;
 const Player = () => {
@@ -44,7 +44,6 @@ const Player = () => {
             audio.pause()
         }
     }
-  }, [active]);
 
     const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
         audio.volume = Number(e.target.value) / 100

@@ -4,6 +4,8 @@ import MainLayout from '../../layouts/MainLayout';
 import { useRouter } from 'next/router';
 import TrackList from '../../components/TrackList';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { fetchTracks } from '../../store/actions-creators/track';
+import { NextThunkDispatch, wrapper } from '../../store';
 
 const Index = () => {
   const router = useRouter();
