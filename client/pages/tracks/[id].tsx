@@ -16,7 +16,7 @@ const TrackPage = ({serverTrack}) => {
 
     const addComment = async () => {
         try {
-            const response = await axios.post('/tracks/comment', {
+            const response = await axios.post('http://localhost:5000/api/tracks/comment', {
                 username: username.value,
                 text: text.value,
                 trackId: track._id
@@ -80,7 +80,7 @@ const TrackPage = ({serverTrack}) => {
 export default TrackPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const response = await axios.get('/api/tracks/' + params.id);
+  const response = await axios.get('http://localhost:5000/api/tracks/' + params.id);
   return {
     props: {
       serverTrack: response.data,
