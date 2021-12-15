@@ -9,6 +9,7 @@ export const fetchTracks = () => {
       console.log({ response });
       dispatch({ type: TrackActionTypes.FETCH_TRACKS, payload: response.data });
     } catch (e) {
+      console.log({e});
       dispatch({
         type: TrackActionTypes.FETCH_TRACKS_ERROR,
         payload: 'Error while downloading tracks',
