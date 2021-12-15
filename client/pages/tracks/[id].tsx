@@ -16,7 +16,7 @@ const TrackPage = ({serverTrack}) => {
 
     const addComment = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/tracks/comment', {
+            const response = await axios.post('/tracks/comment', {
                 username: username.value,
                 text: text.value,
                 trackId: track._id
@@ -66,7 +66,7 @@ const TrackPage = ({serverTrack}) => {
                 <Button onClick={addComment}>Send</Button>
             </Grid>
             <div>
-                {track.comments.map(comment, i) =>
+                {track.comments.map((comment, i) =>
                   <div key={i}>
                       <div>User Name - {comment.username}</div>
                       <div>Comment - {comment.text}</div>
