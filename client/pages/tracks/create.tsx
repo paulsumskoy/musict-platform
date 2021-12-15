@@ -27,7 +27,7 @@ const Create = () => {
       formData.append('picture', picture);
       formData.append('audio', audio);
       axios
-        .post('/api/tracks', formData)
+        .post('http://localhost:5000/api/tracks', formData)
         .then(resp => {
           console.log({ resp });
           router.push('/tracks');
