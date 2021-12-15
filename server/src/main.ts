@@ -5,7 +5,7 @@ import { AppModule } from './app.module';
 const start = async () => {
   try {
     const app = await NestFactory.create(AppModule);
-    // app.enableCors();
+    app.enableCors();
     const configService = app.get(ConfigService);
     const PORT = configService.get<number>('server.port');
     await app.listen(PORT, () => console.log(`server started on PORT ${PORT}`));
